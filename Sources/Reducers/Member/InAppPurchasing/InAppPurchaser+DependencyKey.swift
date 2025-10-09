@@ -1,6 +1,6 @@
 // InAppPurchaser+DependencyKey.swift
-// Copyright (c) 2024 Nostudio
-// Created by Jerry X T Wang on 2024/2/25.
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
 import Dependencies
 

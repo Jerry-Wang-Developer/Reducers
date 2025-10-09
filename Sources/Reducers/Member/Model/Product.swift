@@ -1,43 +1,43 @@
 // Product.swift
-// Copyright (c) 2024 Nostudio
-// Created by Jerry X T Wang on 2024/2/27.
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
-import Foundation
-import StoreKit
-import MetaCodable
 import ComposableArchitecture
+import Foundation
+import MetaCodable
+import StoreKit
 
-extension Member {
+public extension Member {
     @Codable
-    public struct Product: Equatable, Sendable {
+    struct Product: Equatable, Sendable {
         @CodedAt("productID")
         public var productID: String
-        
+
         @IgnoreCoding
         @Shared(.appStorage("discount"))
         private var discount: Int? = nil
-        
+
         @CodedAt("displayName")
         public let displayName: String
-        
+
         @CodedAt("description")
         public let description: String
-        
+
         @CodedAt("price")
         public let price: Decimal
-        
+
         public var originalPrice: Decimal? {
             discount.flatMap {
                 price * 100 / Decimal($0)
             }
         }
-        
+
         @CodedAt("currency")
         public let priceFormatStyle: Decimal.FormatStyle.Currency
-        
+
         @CodedAt("subscription")
         public let subscription: Member.SubscriptionInfo?
-        
+
         init(
             productID: String,
             displayName: String,
@@ -51,20 +51,20 @@ extension Member {
             self.description = description
             self.price = price
             self.priceFormatStyle = priceFormatStyle
-            
+
             self.subscription = subscription
         }
-        
+
         init(product: StoreKit.Product) async {
             productID = product.id
             displayName = product.displayName
             description = product.description
             price = product.price
             priceFormatStyle = product.priceFormatStyle
-            
+
             subscription = await .init(product.subscription)
         }
-        
+
 //        private func extractCurrency(from displayPrice: String) -> String? {
 //            // 定义正则表达式模式
 //            let pattern = #"^([^\d]+)([\d.,]+)$"#

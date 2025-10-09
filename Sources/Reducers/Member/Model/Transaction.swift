@@ -1,26 +1,26 @@
 // Transaction.swift
-// Copyright (c) 2024 Nostudio
-// Created by Jerry X T Wang on 2024/2/27.
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
 import Foundation
-import StoreKit
 import MetaCodable
+import StoreKit
 
-extension Member {
+public extension Member {
     @Codable
-    public struct Transaction: Equatable, Sendable {
+    struct Transaction: Equatable, Sendable {
         @CodedAt("productID")
         public let productID: String
-        
+
         @CodedAt("purchaseDate")
         public let purchaseDate: Date
-        
+
         @CodedAt("originalPurchaseDate")
         public let originalPurchaseDate: Date
-        
+
         @CodedAt("expirationDate")
         public let expirationDate: Date?
-        
+
         @CodedAt("productType")
         public let productType: Member.ProductType?
 

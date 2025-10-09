@@ -1,13 +1,10 @@
-//
-//  File.swift
-//  
-//
-//  Created by 王小涛 on 2024/6/8.
-//
+// MultipleChoices.swift
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
-import Foundation
-import ComposableArchitecture
 import Collections
+import ComposableArchitecture
+import Foundation
 
 @Reducer
 public struct MultipleChoices<Option: Hashable & Sendable> {
@@ -15,23 +12,23 @@ public struct MultipleChoices<Option: Hashable & Sendable> {
     public struct State: Equatable {
         public let allowZeroSelected: Bool = false
         public var selectedOptions: OrderedSet<Option>
-        
+
         public init(selectedOptions: OrderedSet<Option> = []) {
             self.selectedOptions = selectedOptions
         }
     }
-    
+
     @CasePathable
     public enum Action {
         case toggleOptionSelection(Option)
         case confirmButtonTapped
         case cancelButtonTapped
     }
-    
+
     public init() {}
-    
+
     @Dependency(\.dismiss) var dismiss
-    
+
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -46,10 +43,10 @@ public struct MultipleChoices<Option: Hashable & Sendable> {
                     state.selectedOptions.append(option)
                 }
                 return .none
-            
+
             case .confirmButtonTapped:
                 return .none
-                
+
             case .cancelButtonTapped:
                 return .run { [dismiss] _ in
                     await dismiss()

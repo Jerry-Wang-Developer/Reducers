@@ -1,11 +1,10 @@
 // Member.swift
-// Copyright (c) 2024 Nostudio
-// Created by Jerry X T Wang on 2024/2/25.
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
 import ComposableArchitecture
 import Foundation
 import MetaCodable
-import ComposableArchitecture
 
 @Reducer
 public struct Member {
@@ -14,24 +13,23 @@ public struct Member {
     public struct State: Equatable, Sendable {
         @CodedAt("productID")
         public let productID: String
-        
+
         @Shared(.appStorage("discount"))
         @CodedAt("discount")
-
         @Default(Int?.none)
         public private(set) var discount: Int?
- 
+
         @CodedAt("product")
         @Default(Member.Product?.none)
         public var product: Member.Product?
-        
+
         @CodedAt("latestTransaction")
         @Default(Member.Transaction?.none)
         var latestTransaction: Member.Transaction?
 
         @IgnoreCoding
         public var isSyncing: Bool = false
-        
+
         @IgnoreCoding
         public var isPurchasing: Bool = false
 
@@ -43,18 +41,17 @@ public struct Member {
 
             return latestTransaction.isAvaliable
         }
-        
+
         public init(
             productID: String,
-            discount: Int? = nil
+            discount _: Int? = nil
         ) {
             self.productID = productID
-            self.$discount.withLock {
+            $discount.withLock {
                 $0 = $0.flatMap { max(1, min($0, 100)) }
             }
-//            self.discount = discount.flatMap { max(1, min($0, 100)) }
         }
-        
+
         init(
             productID: String,
             discount: Int? = nil,
@@ -62,7 +59,6 @@ public struct Member {
         ) {
             self.productID = productID
             self.$discount.withLock { $0 = discount }
-//            self.discount = discount
             self.product = product
         }
     }
@@ -82,7 +78,7 @@ public struct Member {
     }
 
     @Dependency(\.inAppPurchaser) var inAppPurchaser
-    
+
     public init() {}
 
     public var body: some ReducerOf<Self> {
@@ -108,10 +104,10 @@ public struct Member {
                 }
 
                 return .run { [state, inAppPurchaser] send in
-                        await send(._updateIsPurchasing(true))
-                        let transaction = try await inAppPurchaser.purchase(productID: state.productID)
-                        await send(._updateLatestTransaction(transaction))
-                        await send(._updateIsPurchasing(false))
+                    await send(._updateIsPurchasing(true))
+                    let transaction = try await inAppPurchaser.purchase(productID: state.productID)
+                    await send(._updateLatestTransaction(transaction))
+                    await send(._updateIsPurchasing(false))
                 }
 
             case let ._updateIsSyncing(isSyning):
@@ -152,25 +148,25 @@ public struct Member {
 extension Member.State: Decodable {
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.productID = try container.decode(String.self, forKey: CodingKeys.productID)
+        productID = try container.decode(String.self, forKey: CodingKeys.productID)
         do {
-            try self.$discount.withLock {
+            try $discount.withLock {
                 $0 = try container.decodeIfPresent(Int.self, forKey: CodingKeys.discount) ?? Int?.none
             }
         } catch {
-            self.$discount.withLock {
+            $discount.withLock {
                 $0 = Int?.none
             }
         }
         do {
-            self.product = try container.decodeIfPresent(Member.Product.self, forKey: CodingKeys.product) ?? Member.Product?.none
+            product = try container.decodeIfPresent(Member.Product.self, forKey: CodingKeys.product) ?? Member.Product?.none
         } catch {
-            self.product = Member.Product?.none
+            product = Member.Product?.none
         }
         do {
-            self.latestTransaction = try container.decodeIfPresent(Member.Transaction.self, forKey: CodingKeys.latestTransaction) ?? Member.Transaction?.none
+            latestTransaction = try container.decodeIfPresent(Member.Transaction.self, forKey: CodingKeys.latestTransaction) ?? Member.Transaction?.none
         } catch {
-            self.latestTransaction = Member.Transaction?.none
+            latestTransaction = Member.Transaction?.none
         }
     }
 }

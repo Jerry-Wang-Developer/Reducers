@@ -1,14 +1,14 @@
 // SubscriptionPeriod.swift
-// Copyright (c) 2024 Nostudio
-// Created by Jerry X T Wang on 2024/2/27.
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
 import Foundation
-import StoreKit
 import MetaCodable
+import StoreKit
 
-extension Member {
+public extension Member {
     @Codable
-    public struct SubscriptionPeriod: Equatable, Sendable {
+    struct SubscriptionPeriod: Equatable, Sendable {
         public enum Unit: Equatable, Sendable, Codable {
             case day
             case week
@@ -18,7 +18,7 @@ extension Member {
 
         @CodedAt("unit")
         public let unit: Member.SubscriptionPeriod.Unit
-        
+
         @CodedAt("value")
         public let value: Int
 

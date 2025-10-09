@@ -1,6 +1,6 @@
 // InAppPurchasing.swift
-// Copyright (c) 2024 Nostudio
-// Created by Jerry X T Wang on 2024/2/25.
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
 import Foundation
 import StoreKit
@@ -62,19 +62,18 @@ struct InAppPurchaser: InAppPurchasing {
             return nil
         }
     }
-    
-    
+
     func restore() async throws -> [Member.Transaction] {
         try await AppStore.sync()
-         
+
         var transactions: [Member.Transaction] = []
-        
+
         for await result in Transaction.currentEntitlements {
             if case let .verified(transation) = result {
-                transactions.append(Member.Transaction.init(transation))
+                transactions.append(Member.Transaction(transation))
             }
         }
-        
+
         return transactions
     }
 }

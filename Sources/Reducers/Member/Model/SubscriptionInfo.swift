@@ -1,23 +1,23 @@
 // SubscriptionInfo.swift
-// Copyright (c) 2024 Nostudio
-// Created by Jerry X T Wang on 2024/2/27.
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
 import Foundation
-import StoreKit
 import MetaCodable
+import StoreKit
 
-extension Member {
+public extension Member {
     @Codable
-    public struct SubscriptionInfo: Equatable, Sendable {
+    struct SubscriptionInfo: Equatable, Sendable {
         @CodedAt("period")
         public let period: Member.SubscriptionPeriod
-        
+
         @CodedAt("freeTrial")
         public let freeTrial: Member.FreeTrial?
-        
+
         @CodedAt("isEligibleForIntroOffer")
         public let isEligibleForIntroOffer: Bool
-                
+
         init(
             period: SubscriptionPeriod,
             freeTrial: FreeTrial?,
@@ -32,7 +32,8 @@ extension Member {
             guard let subscriptionInfo else { return nil }
             period = .init(subscriptionInfo.subscriptionPeriod)
             if let introductoryOffer = subscriptionInfo.introductoryOffer,
-               introductoryOffer.paymentMode == .freeTrial {
+               introductoryOffer.paymentMode == .freeTrial
+            {
                 freeTrial = .init(period: .init(introductoryOffer.period))
             } else {
                 freeTrial = nil
@@ -42,7 +43,7 @@ extension Member {
     }
 
     @Codable
-    public struct FreeTrial: Equatable, Sendable {
+    struct FreeTrial: Equatable, Sendable {
         @CodedAt("period")
         public let period: Member.SubscriptionPeriod
     }

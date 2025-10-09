@@ -1,3 +1,7 @@
+// Email.swift
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
+
 import ApplicationDependency
 import ComposableArchitecture
 import DeviceKit
@@ -46,24 +50,24 @@ public struct AppFeedbackDraft: Sendable {
     var email: Email {
         get async {
             let subject = "\(appName) App Feedback"
-            
+
             let body = """
-        
-        
-        
-        
-        
-        
-        ---------------------------------
-        Device: \(Device.current)
-        iOS Version: \(await systemVersion)
-        Locale: \(Locale.current.identifier)
-        Timezone: \(TimeZone.current.identifier)
-        App Version: \(Bundle.main.bundleShortVersion ?? "")
-        App Build Version: \(Bundle.main.bundleVersion ?? "")
-        App Language: \(AppLanguage.current().rawValue)
-        """
-            
+
+
+
+
+
+
+            ---------------------------------
+            Device: \(Device.current)
+            iOS Version: \(await systemVersion)
+            Locale: \(Locale.current.identifier)
+            Timezone: \(TimeZone.current.identifier)
+            App Version: \(Bundle.main.bundleShortVersion ?? "")
+            App Build Version: \(Bundle.main.bundleVersion ?? "")
+            App Language: \(AppLanguage.current().rawValue)
+            """
+
             return .init(
                 to: to,
                 cc: cc,
@@ -72,7 +76,7 @@ public struct AppFeedbackDraft: Sendable {
             )
         }
     }
-    
+
     var systemVersion: String {
         get async {
             await Task { @MainActor in
@@ -82,17 +86,17 @@ public struct AppFeedbackDraft: Sendable {
     }
 }
 
-//public extension Application {
-//    @MainActor @discardableResult
-//    func send(email: Email) async -> Bool {
-//        if let url: URL = .system.email(
-//            to: email.to,
-//            cc: email.cc,
-//            subject: email.subject,
-//            body: email.body
-//        ) {
-//            return await open(url)
-//        }
-//        return false
-//    }
-//}
+public extension Application {
+    @MainActor @discardableResult
+    func send(email: Email) async -> Bool {
+        if let url: URL = .system.email(
+            to: email.to,
+            cc: email.cc,
+            subject: email.subject,
+            body: email.body
+        ) {
+            return await open(url)
+        }
+        return false
+    }
+}

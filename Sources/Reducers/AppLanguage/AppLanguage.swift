@@ -1,13 +1,10 @@
-//
-//  File.swift
-//  
-//
-//  Created by 王小涛 on 2024/7/20.
-//
+// AppLanguage.swift
+// Copyright (c) 2025 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
+import Dependencies
 import Foundation
 import MobileCore
-import Dependencies
 
 public extension DependencyValues {
     var language: any AppLanguageProviding {
@@ -29,4 +26,3 @@ struct AppLanguageProvider: AppLanguageProviding {
         .current()
     }
 }
-
