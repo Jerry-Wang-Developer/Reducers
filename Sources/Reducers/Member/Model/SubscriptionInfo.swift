@@ -6,9 +6,9 @@ import Foundation
 import MetaCodable
 import StoreKit
 
-public extension Member {
+extension Member {
     @Codable
-    struct SubscriptionInfo: Equatable, Sendable {
+    public struct SubscriptionInfo: Equatable, Sendable {
         @CodedAt("period")
         public let period: Member.SubscriptionPeriod
 
@@ -43,7 +43,7 @@ public extension Member {
     }
 
     @Codable
-    struct FreeTrial: Equatable, Sendable {
+    public struct FreeTrial: Equatable, Sendable {
         @CodedAt("period")
         public let period: Member.SubscriptionPeriod
     }

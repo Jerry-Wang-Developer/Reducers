@@ -6,9 +6,9 @@ import Foundation
 import MetaCodable
 import StoreKit
 
-public extension Member {
+extension Member {
     @Codable
-    struct Transaction: Equatable, Sendable {
+    public struct Transaction: Equatable, Sendable {
         @CodedAt("productID")
         public let productID: String
 

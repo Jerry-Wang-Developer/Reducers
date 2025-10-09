@@ -6,9 +6,9 @@ import Foundation
 import MetaCodable
 import StoreKit
 
-public extension Member {
+extension Member {
     @Codable
-    struct SubscriptionPeriod: Equatable, Sendable {
+    public struct SubscriptionPeriod: Equatable, Sendable {
         public enum Unit: Equatable, Sendable, Codable {
             case day
             case week
