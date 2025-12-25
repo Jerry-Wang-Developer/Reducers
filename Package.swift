@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Reducers",
     platforms: [
-        .iOS(.v16),
+        .iOS(.v17),
         .watchOS(.v6)
     ],
     products: [
@@ -31,7 +31,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/Gaea-iOS/MobileCore.git",
-            revision: "78b1ab7df391725caf0abc64b2f5796d9f805cee"
+            revision: "c2a59c32c15d2be790fdab750d17056ff9142bec"
         ),
         .package(
             url: "https://github.com/SwiftyLab/MetaCodable.git",
