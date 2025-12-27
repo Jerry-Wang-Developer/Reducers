@@ -1,5 +1,5 @@
 {
-  "originHash" : "5ef5bc78aff470ac2b7352856f5b1fa5824f6ae42fa4853100f441b06d39d05a",
+  "originHash" : "6559a9285bff3afc18e43c45c57e9a3abb8de6228f5be706cd25499877a57e13",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -42,7 +42,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Gaea-iOS/MobileCore.git",
       "state" : {
-        "revision" : "c2a59c32c15d2be790fdab750d17056ff9142bec"
+        "revision" : "2723e08e06180271f7813f31af48d6cdcbadd4e5"
       }
     },
     {
