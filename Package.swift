@@ -31,7 +31,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/Gaea-iOS/MobileCore.git",
-            revision: "b00158ddc6dc44f37f905a57621aaa021876f603"
+            revision: "8983f11a5a899f99e3db6b16eba0c22a29a33276"
         ),
         .package(
             url: "https://github.com/SwiftyLab/MetaCodable.git",
