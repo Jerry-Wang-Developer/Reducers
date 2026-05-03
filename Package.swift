@@ -19,7 +19,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/pointfreeco/swift-composable-architecture.git",
-            from: "1.23.1"
+            from: "1.25.5"
         ),
         .package(
             url: "https://github.com/tgrapperon/swift-dependencies-additions.git",
@@ -27,23 +27,23 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/devicekit/DeviceKit.git",
-            from: "5.7.0"
+            from: "5.8.0"
         ),
         .package(
             url: "https://github.com/Gaea-iOS/MobileCore.git",
-            revision: "8983f11a5a899f99e3db6b16eba0c22a29a33276"
+            revision: "2e5ae84d4db4331a541daa478fe2a194e21b77c4"
         ),
         .package(
             url: "https://github.com/SwiftyLab/MetaCodable.git",
-            from: "1.5.0"
+            from: "1.6.0"
         ),
         .package(
             url: "https://github.com/apple/swift-collections.git",
-                .upToNextMinor(from: "1.2.1")
+            from: "1.4.1"
         ),
         .package(
             url: "https://github.com/kstenerud/KSCrash.git",
-                .upToNextMajor(from: "2.3.0")
+            from: "2.5.1"
         )
     ],
     targets: [
