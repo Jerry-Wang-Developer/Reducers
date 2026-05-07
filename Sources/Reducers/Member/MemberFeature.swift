@@ -46,9 +46,9 @@ public struct MemberFeature : Sendable{
         case updateIsSyncing(Bool)
         case updateIsPurchasing(Bool)
         
-        case updateDetails(Member.Product.Details)
-        case updateSubscription(Member.Product.SubscriptionInfo)
-        case updateLatestTransaction(Member.Product.Transaction)
+        case updateProduct(Product?)
+        case _updateSubscriptionInfo(Member.Product.SubscriptionInfo?)
+        case updateLatestTransaction(Transaction?)
     }
 
     @Dependency(\.inAppPurchaser) var inAppPurchaser
@@ -63,16 +63,12 @@ public struct MemberFeature : Sendable{
                 
                 return .run { [state] send in
                     await send(.updateIsSyncing(true))
-                    if let product = try await inAppPurchaser.product(productID: state.product.productID) {
-                        await send(.updateDetails(.init(product: product)))
-                        if let subscription = product.subscription {
-                            await send(.updateSubscription(await .init(subscription)))
-                        }
-                    }
                     
-                    if let transaction = await inAppPurchaser.latestTransaction(productID: state.product.productID) {
-                        await send(.updateLatestTransaction(.init(transaction)))
-                    }
+                    let product = try await inAppPurchaser.product(productID: state.product.productID)
+                    await send(.updateProduct(product))
+                    
+                    let transaction = await inAppPurchaser.latestTransaction(productID: state.product.productID)
+                    await send(.updateLatestTransaction(transaction))
 
                     await send(.updateIsSyncing(false))
                 }
@@ -96,16 +92,20 @@ public struct MemberFeature : Sendable{
                 state.isPurchasing = isPurchasing
                 return .none
                 
-            case let .updateDetails(details):
-                state.product.details = details
-                return .none
+            case let .updateProduct(product):
+                state.product.details = product.flatMap(Member.Product.Details.init(product:))
                 
-            case let .updateSubscription(subscription):
-                state.product.subscription = subscription
+                return .run { send in
+                    let subscription = await product?.subscription.asyncFlatMap(Member.Product.SubscriptionInfo.init)
+                    await send(._updateSubscriptionInfo(subscription))
+                }
+                
+            case let ._updateSubscriptionInfo(info):
+                state.product.subscription = info
                 return .none
                 
             case let .updateLatestTransaction(transation):
-                state.product.latestTransaction = transation
+                state.product.latestTransaction = transation.flatMap(Member.Product.Transaction.init)
                 return .none
             }
         }
