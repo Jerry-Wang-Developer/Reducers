@@ -5,7 +5,7 @@
 import Collections
 
 public protocol MembersState<T> {
-    associatedtype T: Collection<Member.State>
+    associatedtype T: Collection<MemberFeature.State>
     var members: T { get }
 }
 
@@ -14,7 +14,7 @@ public extension MembersState {
         owned != nil
     }
 
-    var owned: Member.State? {
+    var owned: MemberFeature.State? {
         let owned = members.first { $0.isAvaliable }
         return owned
     }

@@ -6,25 +6,20 @@ import Foundation
 import StoreKit
 
 public protocol InAppPurchasing: Sendable {
-    func product(productID: String) async throws -> Member.Product?
-    func purchase(productID: String) async throws -> Member.Transaction?
-    func latestTransaction(productID: String) async -> Member.Transaction?
-    func restore() async throws -> [Member.Transaction]
+    func product(productID: String) async throws -> StoreKit::Product?
+    func purchase(productID: String) async throws -> StoreKit::Transaction?
+    func latestTransaction(productID: String) async -> StoreKit::Transaction?
+    func restore() async throws -> [StoreKit::Transaction]
 }
 
 struct InAppPurchaser: InAppPurchasing {
-    private func product(productID: String) async throws -> StoreKit.Product? {
-        let products = try await Product.products(for: [productID])
+    func product(productID: String) async throws -> StoreKit::Product? {
+        let products = try await StoreKit::Product.products(for: [productID])
         let product = products.first
         return product
     }
 
-    func product(productID: String) async throws -> Member.Product? {
-        let product: StoreKit.Product? = try await product(productID: productID)
-        return await product.asyncFlatMap(Member.Product.init(product:))
-    }
-
-    func purchase(productID: String) async throws -> Member.Transaction? {
+    func purchase(productID: String) async throws -> StoreKit::Transaction? {
         guard let product: StoreKit.Product = try await product(productID: productID) else {
             return nil
         }
@@ -33,7 +28,7 @@ struct InAppPurchaser: InAppPurchasing {
         switch result {
         case let .success(.verified(transaction)):
             await transaction.finish()
-            return .init(transaction)
+            return transaction
 
         case .success(.unverified):
             // Successful purchase but transaction/receipt can't be verified
@@ -53,24 +48,24 @@ struct InAppPurchaser: InAppPurchasing {
         }
     }
 
-    func latestTransaction(productID: String) async -> Member.Transaction? {
+    func latestTransaction(productID: String) async -> StoreKit::Transaction? {
         guard let transation = await StoreKit.Transaction.latest(for: productID) else { return nil }
         switch transation {
         case let .verified(transation):
-            return .init(transation)
+            return transation
         case .unverified:
             return nil
         }
     }
 
-    func restore() async throws -> [Member.Transaction] {
+    func restore() async throws -> [StoreKit::Transaction] {
         try await AppStore.sync()
 
-        var transactions: [Member.Transaction] = []
+        var transactions: [StoreKit::Transaction] = []
 
         for await result in Transaction.currentEntitlements {
             if case let .verified(transation) = result {
-                transactions.append(Member.Transaction(transation))
+                transactions.append(transation)
             }
         }
 

@@ -5,10 +5,10 @@
 import Foundation
 import MobileCore
 
-extension Member.State: TypeSafeIdentifiable, Identifiable {
+extension MemberFeature.State: TypeSafeIdentifiable, Identifiable {
     public typealias RawIdentifier = String
 
     public var id: ID<Self> {
-        ID(rawValue: productID)
+        ID(rawValue: product.productID)
     }
 }
