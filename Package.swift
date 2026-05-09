@@ -7,7 +7,7 @@ let package = Package(
     name: "Reducers",
     platforms: [
         .iOS(.v17),
-        .watchOS(.v6)
+        .watchOS(.v6),
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -30,10 +30,6 @@ let package = Package(
             from: "5.8.0"
         ),
         .package(
-            url: "https://github.com/Gaea-iOS/MobileCore.git",
-            revision: "2e5ae84d4db4331a541daa478fe2a194e21b77c4"
-        ),
-        .package(
             url: "https://github.com/SwiftyLab/MetaCodable.git",
             from: "1.6.0"
         ),
@@ -44,7 +40,7 @@ let package = Package(
         .package(
             url: "https://github.com/kstenerud/KSCrash.git",
             from: "2.5.1"
-        )
+        ),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -55,11 +51,16 @@ let package = Package(
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "DependenciesAdditions", package: "swift-dependencies-additions"),
                 .product(name: "DeviceKit", package: "DeviceKit"),
-                .product(name: "MobileCore", package: "MobileCore"),
                 .product(name: "MetaCodable", package: "MetaCodable"),
                 .product(name: "HelperCoders", package: "MetaCodable"),
                 .product(name: "Collections", package: "swift-collections"),
-                .product(name: "Installations", package: "KSCrash")
+                .product(name: "Installations", package: "KSCrash"),
+            ],
+            swiftSettings: [
+                // 完整并发检测
+                .unsafeFlags(["-strict-concurrency=complete"]),
+                // 设置 noisolate 无默认隔离
+                .defaultIsolation(nil),
             ]
         ),
         .testTarget(

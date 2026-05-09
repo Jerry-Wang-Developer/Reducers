@@ -6,5 +6,5 @@ files=$(git diff --name-only HEAD -- '*.swift')
 # 对每个文件进行格式化
 for file in $files
 do
-  swiftformat "$file"
+  swiftformat "$file" --config ./scripts/swiftformat.yml
 done

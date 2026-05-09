@@ -1,13 +1,12 @@
-// AppLanguage.swift
-// Copyright (c) 2025 Nostudio Office
+// AppLanguageProvider.swift
+// Copyright (c) 2026 Nostudio Office
 // Created by Jerry X T Wang on 2025/9/29.
 
 import Dependencies
 import Foundation
-import MobileCore
 
-public extension DependencyValues {
-    var language: any AppLanguageProviding {
+extension DependencyValues {
+    public var language: any AppLanguageProviding {
         get { self[AppLanguageProvider.self] }
         set { self[AppLanguageProvider.self] = newValue }
     }

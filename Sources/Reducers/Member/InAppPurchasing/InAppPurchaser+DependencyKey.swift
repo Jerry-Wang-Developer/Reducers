@@ -4,8 +4,8 @@
 
 import Dependencies
 
-public extension DependencyValues {
-    var inAppPurchaser: any InAppPurchasing {
+extension DependencyValues {
+    public var inAppPurchaser: any InAppPurchasing {
         get { self[InAppPurchaser.self] }
         set { self[InAppPurchaser.self] = newValue }
     }

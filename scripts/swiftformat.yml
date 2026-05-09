@@ -1,0 +1,5 @@
+# SwiftFormat 配置文件 (swiftformat.yml)
+# 参考文档: https://github.com/nicklockwood/swiftformat#config-file
+
+# rules
+--disable extensionAccessControl

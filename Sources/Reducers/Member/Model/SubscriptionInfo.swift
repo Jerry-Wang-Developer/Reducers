@@ -1,28 +1,25 @@
-//
-//  SubscriptionInfo.swift
-//  Reducers
-//
-//  Created by 王小涛 on 2026/5/6.
-//
+// SubscriptionInfo.swift
+// Copyright (c) 2026 Nostudio Office
+// Created by Jerry X T Wang on 2025/9/29.
 
 import Foundation
 import MetaCodable
 import StoreKit
 
-extension Member.Product {
+extension Product {
     @Codable
     public struct SubscriptionInfo: Equatable, Sendable {
         @CodedAt("period")
-        public let period: Member.Product.SubscriptionPeriod
+        public let period: Product.SubscriptionPeriod
 
         @CodedAt("freeTrial")
-        @Default(Member.Product.FreeTrial?.none)
-        public let freeTrial: Member.Product.FreeTrial?
+        @Default(Product.FreeTrial?.none)
+        public let freeTrial: Product.FreeTrial?
 
         @CodedAt("isEligibleForIntroOffer")
         public let isEligibleForIntroOffer: Bool
 
-        init(_ subscriptionInfo: StoreKit::Product.SubscriptionInfo) async {
+        init(_ subscriptionInfo: StoreKit:: Product.SubscriptionInfo) async {
             period = .init(subscriptionInfo.subscriptionPeriod)
             if let introductoryOffer = subscriptionInfo.introductoryOffer,
                introductoryOffer.paymentMode == .freeTrial
@@ -38,11 +35,11 @@ extension Member.Product {
     @Codable
     public struct FreeTrial: Equatable, Sendable {
         @CodedAt("period")
-        public let period: Member.Product.SubscriptionPeriod
+        public let period: Product.SubscriptionPeriod
     }
 }
 
-extension Member.Product {
+extension Product {
     @Codable
     public struct SubscriptionPeriod: Equatable, Sendable {
         public enum Unit: Equatable, Sendable, Codable {
@@ -58,7 +55,7 @@ extension Member.Product {
         @CodedAt("value")
         public let value: Int
 
-        init(_ period: StoreKit::Product.SubscriptionPeriod) {
+        init(_ period: StoreKit:: Product.SubscriptionPeriod) {
             unit = {
                 switch period.unit {
                 case .day: .day

@@ -1,12 +1,11 @@
 // Email.swift
-// Copyright (c) 2025 Nostudio Office
+// Copyright (c) 2026 Nostudio Office
 // Created by Jerry X T Wang on 2025/9/29.
 
-import ApplicationDependency
 import ComposableArchitecture
+import DependenciesAdditions
 import DeviceKit
 import Foundation
-import MobileCore
 import UIKit
 
 public struct Email: Sendable {
@@ -86,9 +85,9 @@ public struct AppFeedbackDraft: Sendable {
     }
 }
 
-public extension Application {
+extension Application {
     @MainActor @discardableResult
-    func send(email: Email) async -> Bool {
+    public func send(email: Email) async -> Bool {
         if let url: URL = .system.email(
             to: email.to,
             cc: email.cc,
