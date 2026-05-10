@@ -55,12 +55,6 @@ let package = Package(
                 .product(name: "HelperCoders", package: "MetaCodable"),
                 .product(name: "Collections", package: "swift-collections"),
                 .product(name: "Installations", package: "KSCrash"),
-            ],
-            swiftSettings: [
-                // 完整并发检测
-                .unsafeFlags(["-strict-concurrency=complete"]),
-                // 设置 noisolate 无默认隔离
-                .defaultIsolation(nil),
             ]
         ),
         .testTarget(
