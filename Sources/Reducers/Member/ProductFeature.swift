@@ -16,7 +16,7 @@ public struct ProductFeature {
         public internal(set) var product: Product
 
         @IgnoreCoding
-        @Shared(.appStorage("member"))
+        @Shared(.member)
         public var member: Member?
 
         @IgnoreCoding
