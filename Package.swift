@@ -56,9 +56,11 @@ let package = Package(
                 .product(name: "Collections", package: "swift-collections"),
                 .product(name: "Installations", package: "KSCrash"),
             ],
+            // ✅ 現代 Swift 6.2 的標準乾淨做法
             swiftSettings: [
-                // ✅ 乾淨：純 Swift 6 模式下不需要開啟 Strict Concurrency 特性
-                .unsafeFlags(["-Xfrontend", "-default-actor-isolation=nonisolated"])
+                // ✅ 正確寫法：帶入 nil，代表維持預設的 nonisolated 環境
+                // 在 Swift 6.2 中，SPM 的 Target 預設狀態本來就是 nonisolated
+                .defaultIsolation(nil)
             ]
         ),
         .testTarget(
