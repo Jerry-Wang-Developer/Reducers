@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class UserDefaultsStorage<Value>: KeyValueStorage {    
+public final class UserDefaultsStorage<Value>: KeyValueStorage, @unchecked Sendable {    
     private let userDefaults: UserDefaults
     
     private let serializer: any Serializer<Value>

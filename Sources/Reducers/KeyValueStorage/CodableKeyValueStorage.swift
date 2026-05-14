@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol CodableKeyValueStorage {
+public protocol CodableKeyValueStorage: Sendable {
     func save<Value>(_ value: Value?, forKey: CachedKey<Value>) throws where Value: Codable
     func value<Value>(forKey: CachedKey<Value>) throws -> Value? where Value: Codable
 }

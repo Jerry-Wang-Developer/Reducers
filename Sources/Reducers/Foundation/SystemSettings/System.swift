@@ -12,7 +12,7 @@ public struct System<Base> {
     }
 }
 
-public protocol SystemCompatible {
+public protocol SystemCompatible: Sendable {
     associatedtype SystemCompatibleType
     static var system: SystemCompatibleType.Type { get }
     var system: SystemCompatibleType { get }

@@ -7,15 +7,15 @@
 
 import Foundation
 
-public protocol Deserializer<Output> {
+public protocol Deserializer<Output>: Sendable {
     associatedtype Output
     func deserialize(_ data: Data) throws -> Output
 }
 
-public protocol AnyDeserializer {
+public protocol AnyDeserializer: Sendable {
     func deserialize<Output>(_ data: Data) throws -> Output
 }
 
-public protocol AnyDecodableDeserializer {
+public protocol AnyDecodableDeserializer: Sendable {
     func deserialize<Output>(_ data: Data) throws -> Output where Output: Decodable
 }

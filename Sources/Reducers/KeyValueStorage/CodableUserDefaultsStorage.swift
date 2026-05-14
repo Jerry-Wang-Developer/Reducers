@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class CodableUserDefaultsStorage: CodableKeyValueStorage {
+public final class CodableUserDefaultsStorage: CodableKeyValueStorage, @unchecked Sendable {
     private let userDefaults: UserDefaults
     
     private let serializer: any AnyEncodableSerializer

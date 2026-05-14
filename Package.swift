@@ -55,11 +55,16 @@ let package = Package(
                 .product(name: "HelperCoders", package: "MetaCodable"),
                 .product(name: "Collections", package: "swift-collections"),
                 .product(name: "Installations", package: "KSCrash"),
+            ],
+            swiftSettings: [
+                // ✅ 乾淨：純 Swift 6 模式下不需要開啟 Strict Concurrency 特性
+                .unsafeFlags(["-Xfrontend", "-default-actor-isolation=nonisolated"])
             ]
         ),
         .testTarget(
             name: "ReducersTests",
             dependencies: ["Reducers"]
         ),
-    ]
+    ],
+    swiftLanguageModes: [.v6] // Swift 6 專用語法
 )

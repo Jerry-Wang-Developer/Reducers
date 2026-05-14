@@ -4,15 +4,15 @@
 
 import Foundation
 
-public protocol Serializer<Input> {
+public protocol Serializer<Input>: Sendable {
     associatedtype Input
     func serialize(_ input: Input) throws -> Data
 }
 
-public protocol AnySerializer {
+public protocol AnySerializer: Sendable {
     func serialize<Input>(_ input: Input) throws -> Data
 }
 
-public protocol AnyEncodableSerializer {
+public protocol AnyEncodableSerializer: Sendable {
     func serialize<Input>(_ input: Input) throws -> Data where Input: Encodable
 }

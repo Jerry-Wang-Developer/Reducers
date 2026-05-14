@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol KeyValueStorage<Value> {
+public protocol KeyValueStorage<Value>: Sendable {
     associatedtype Value
     func save(_ value: Value?, forKey: CachedKey<Value>) throws
     func value(forKey: CachedKey<Value>) throws -> Value?
